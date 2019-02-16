@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from sys import argv
+from sys import argv, exit
 import os
 
 algorithms = [
@@ -14,6 +14,11 @@ algorithms = [
 ]
 
 if __name__ == "__main__":
+    if len(argv) == 1:
+        for algorithm in algorithms:
+            print(algorithm['name'].lower())
+        exit(0)
+
     assert len(argv) == 2, "This script requires one argument"
     assert os.path.isdir(argv[1]), f"The folder \"{argv[1]}\" does not exist"
 
