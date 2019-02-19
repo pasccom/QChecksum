@@ -35,7 +35,7 @@ X-KDE-Submenu[fr]=Hasher
 
 [Desktop Action compute-{algorithm['name'].lower()}]
 Name={algorithm['name']}
-Exec=notify-send -t 0 -i "dialog-information" "{algorithm['name']} checksum" "%f:\\n$({algorithm['program']} %F | cut -d ' ' -f 1)"
+Exec=notify-send -t 0 -i "dialog-information" "{algorithm['name']} checksum" "%f:\\n$({algorithm['program']} %f | cut -d ' ' -f 1)"
 """)
             print(f"Created {desktopFile.name}")
 
@@ -51,7 +51,7 @@ X-KDE-Submenu[fr]=Vérifier hash
 
 [Desktop Action verify-{algorithm['name'].lower()}]
 Name={algorithm['name']}
-Exec=bash -c 'CHECKSUM=$(kdialog --desktopfile checksum-verify-{algorithm['name'].lower()} --title "{algorithm['name']} checksum" --inputbox "Expected {algorithm['name']} checksum:" ""); test -z "$CHECKSUM" && exit 0; test "$CHECKSUM" = "$({algorithm['program']} %f | cut -d " " -f 1)" && notify-send -t 0 -i "dialog-ok" "{algorithm['name']} checksum" "%f:\\nValid {algorithm['name']} checksum" || notify-send -t 0 -i "dialog-error" "{algorithm['name']} checksum" "%f:\\nInvalid {algorithm['name']} checksum"'
-Exec[fr]=bash -c 'CHECKSUM=$(kdialog --desktopfile checksum-verify-{algorithm['name'].lower()} --title "{algorithm['name']} checksum" --inputbox "Somme de contrôle {algorithm['name']} attendue:" ""); test -z "$CHECKSUM" && exit 0; test "$CHECKSUM" = "$({algorithm['program']} %f | cut -d " " -f 1)" && notify-send -t 0 -i "dialog-ok" "{algorithm['name']} checksum" "%f:\\nLa somme de contrôle {algorithm['name']} est valide" || notify-send -t 0 -i "dialog-error" "{algorithm['name']} checksum" "%f:\\nLa somme de contrôle {algorithm['name']} est invalide"'
+Exec=bash -c 'CHECKSUM=$(kdialog --desktopfile checksum-verify-{algorithm['name'].lower()} --title "{algorithm['name']} checksum" --inputbox "Expected {algorithm['name']} checksum for %f:" ""); test -z "$CHECKSUM" && exit 0; test "$CHECKSUM" = "$({algorithm['program']} %f | cut -d " " -f 1)" && notify-send -t 0 -i "dialog-ok" "{algorithm['name']} checksum" "%f:\\nValid {algorithm['name']} checksum" || notify-send -t 0 -i "dialog-error" "{algorithm['name']} checksum" "%f:\\nInvalid {algorithm['name']} checksum"'
+Exec[fr]=bash -c 'CHECKSUM=$(kdialog --desktopfile checksum-verify-{algorithm['name'].lower()} --title "{algorithm['name']} checksum" --inputbox "Somme de contrôle {algorithm['name']} attendue pour %f:" ""); test -z "$CHECKSUM" && exit 0; test "$CHECKSUM" = "$({algorithm['program']} %f | cut -d " " -f 1)" && notify-send -t 0 -i "dialog-ok" "{algorithm['name']} checksum" "%f:\\nLa somme de contrôle {algorithm['name']} est valide" || notify-send -t 0 -i "dialog-error" "{algorithm['name']} checksum" "%f:\\nLa somme de contrôle {algorithm['name']} est invalide"'
 """)
             print(f"Created {desktopFile.name}")
