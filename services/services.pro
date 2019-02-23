@@ -24,10 +24,8 @@ SERVICE_PATHS=$$system(kf5-config --path services)
 SERVICE_PATHS=$$split(SERVICE_PATHS, :)
 isEmpty(USER_INSTALL) {
     INSTALL_PATH = $$member(SERVICE_PATHS, 1)
-    message(branch1)
 } else {
     INSTALL_PATH = $$member(SERVICE_PATHS, 0)
-    message(branch0)
 }
 
 message(INSTALL_PATH=$$INSTALL_PATH)
