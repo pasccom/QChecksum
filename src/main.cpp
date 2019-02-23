@@ -61,7 +61,8 @@ int main(int argc, char** argv)
     QApplication::setApplicationVersion("1.0.0");
 
     QTranslator translator;
-    if (translator.load(QLocale(), "qchecksum", "_"))
+    if (translator.load(QLocale(), "qchecksum", "_", QApplication::applicationDirPath()) ||
+        translator.load(QLocale(), "qchecksum", "_", TRANSLATIONS_INSTALL_DIR))
         app.installTranslator(&translator);
     else
         qDebug() << "Could not load translator";
@@ -80,6 +81,4 @@ int main(int argc, char** argv)
         dialog.addChecksumFilePath(filePath);
     CREATE_BUTTONS(CHECKSUM_LIST)
     return dialog.exec() - 1;
-
-    // return app.exec();
 }

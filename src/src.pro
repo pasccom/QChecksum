@@ -55,3 +55,26 @@ lrelease.CONFIG += no_link
 
 QMAKE_EXTRA_COMPILERS += lrelease
 POST_TARGETDEPS += compiler_lrelease_make_all
+
+# Installation:
+isEmpty(PREFIX) {
+    isEmpty(USER_INSTALL) {
+        BIN_DIR="/usr/bin"
+        DATA_DIR="/usr/share"
+    } else {
+        BIN_DIR="$$(HOME)/bin"
+        DATA_DIR="$$(HOME)/.local/share"
+    }
+} else {
+    BIN_DIR="$$PREFIX/bin"
+    DATA_DIR="$$PREFIX/share"
+}
+
+target.files=$$DESTDIR/$$TARGET
+target.path="$$BIN_DIR"
+
+translations.files=$$DESTDIR/*.qm
+translations.path="$$DATA_DIR/$$TARGET"
+DEFINES += "TRANSLATIONS_INSTALL_DIR=\\\"$${translations.path}\\\""
+
+INSTALLS += target translations
