@@ -17,10 +17,14 @@ public:
     inline QStringList checksumFilePath(void) const {return mFilePaths;}
     bool setChecksumFilePath(const QString& filePath);
     bool addChecksumFilePath(const QString& filePath);
+    void clearChecksumFilePath(void);
 private:
     QBoxLayout* mButtonsLayout;
-    QLineEdit* mLineEdit;
-    QLabel* mLabel;
+    QLabel* mFileLabel;
+    QLineEdit* mFileEdit;
+    QPushButton* mFileButton;
+    QLabel* mChecksumLabel;
+    QLineEdit* mChecksumEdit;
 
     QStringList mFilePaths;
 };

@@ -26,12 +26,12 @@
         <translation>Disable %1 algorithm</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="70"/>
+        <location filename="main.cpp" line="71"/>
         <source>Computes and verifies checksums</source>
         <translation>Computes and verifies checksums</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="74"/>
+        <location filename="main.cpp" line="75"/>
         <source>Files for which checksums will be computed</source>
         <translation>Files for which checksums will be computed</translation>
     </message>
@@ -42,18 +42,38 @@
     </message>
     <message>
         <location filename="qchecksumdialog.cpp" line="13"/>
+        <source>Enter here the path to the file to hash</source>
+        <translation>Enter here the path to the file to hash</translation>
+    </message>
+    <message>
+        <location filename="qchecksumdialog.cpp" line="15"/>
+        <source>File to hash:</source>
+        <translation>File to hash:</translation>
+    </message>
+    <message>
+        <location filename="qchecksumdialog.cpp" line="19"/>
+        <source>Open file browser to choose file to hash</source>
+        <translation>Open file browser to choose the file to hash</translation>
+    </message>
+    <message>
+        <location filename="qchecksumdialog.cpp" line="22"/>
         <source>Enter here the expected checksum</source>
         <translation>Enter here the expected checksum</translation>
     </message>
     <message>
-        <location filename="qchecksumdialog.cpp" line="15"/>
+        <location filename="qchecksumdialog.cpp" line="24"/>
         <source>Expected checksum:</source>
         <translation>Expected checksum:</translation>
     </message>
     <message>
-        <location filename="qchecksumdialog.cpp" line="18"/>
+        <location filename="qchecksumdialog.cpp" line="27"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
+    </message>
+    <message>
+        <location filename="qchecksumdialog.cpp" line="55"/>
+        <source>Choose file to hash</source>
+        <translation>Choose the file to hash</translation>
     </message>
 </context>
 </TS>
