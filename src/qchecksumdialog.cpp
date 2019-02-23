@@ -18,6 +18,12 @@ QChecksumDialog::QChecksumDialog(QWidget* parent) :
     QPushButton* cancelButton = new QPushButton(QIcon::fromTheme("dialog-cancel"), tr("Cancel"), this);
     cancelButton->setMaximumWidth(100);
 
+    QHBoxLayout* checksumLayout = new QHBoxLayout;
+    checksumLayout->setSpacing(2);
+    checksumLayout->setContentsMargins(2, 2, 2, 2);
+    checksumLayout->addWidget(mLabel, 0);
+    checksumLayout->addWidget(mLineEdit, 1);
+
     mButtonsLayout = new QHBoxLayout;
     mButtonsLayout->setSpacing(2);
     mButtonsLayout->setContentsMargins(2, 2, 2, 2);
@@ -26,8 +32,7 @@ QChecksumDialog::QChecksumDialog(QWidget* parent) :
     QBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setSpacing(2);
     mainLayout->setContentsMargins(2, 2, 2, 2);
-    mainLayout->addWidget(mLabel);
-    mainLayout->addWidget(mLineEdit);
+    mainLayout->addLayout(checksumLayout);
     mainLayout->addLayout(mButtonsLayout);
 
     setLayout(mainLayout);
