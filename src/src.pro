@@ -2,13 +2,15 @@ TEMPLATE = app     # Make an executable
 TARGET = qchecksum # The name of the executable
 QT += widgets
 
-HEADERS += qchecksumdialog.h
+HEADERS += qchecksumdialog.h    \
+           pathvalidator.h      \
 
-SOURCES += qchecksumdialog.cpp \
-           main.cpp
+SOURCES += qchecksumdialog.cpp  \
+           pathvalidator.cpp    \
+           main.cpp             \
 
 TRANSLATIONS += qchecksum_en.ts \
-                qchecksum_fr.ts
+                qchecksum_fr.ts \
 
 RESOURCES += qchecksum.qrc
 

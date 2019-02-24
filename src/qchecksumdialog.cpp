@@ -1,4 +1,5 @@
 #include "qchecksumdialog.h"
+#include "pathvalidator.h"
 
 #include <QtWidgets>
 #include <iostream>
@@ -10,6 +11,7 @@ QChecksumDialog::QChecksumDialog(QWidget* parent) :
     setWindowIcon(QIcon(":/app.png"));
 
     mFileEdit = new QLineEdit(this);
+    mFileEdit->setValidator(new PathValidator(PathValidator::AcceptsFiles, mFileEdit));
     mFileEdit->setWhatsThis(tr("Enter here the path to the file to hash"));
 
     mFileLabel = new QLabel(tr("File to hash:"), this);
@@ -44,6 +46,16 @@ QChecksumDialog::QChecksumDialog(QWidget* parent) :
 
     setLayout(mainLayout);
     setFixedHeight(sizeHint().height());
+
+    connect(mFileEdit, &QLineEdit::textEdited, this, [this] () {
+        if (mFileEdit->hasAcceptableInput()) {
+            mFileEdit->setPalette(QPalette());
+        } else {
+            QPalette palette = mFileEdit->palette();
+            palette.setColor(QPalette::Text, Qt::red);
+            mFileEdit->setPalette(palette);
+        }
+    });
 
     connect(mFileButton, &QPushButton::clicked, this, [this] () {
         QString dir;
