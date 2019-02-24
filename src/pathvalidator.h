@@ -55,7 +55,9 @@ public:
      *
      * \param text The string to validate (the contents of the line edit).
      * \param pos The position of the cursor.
-     * \return \c Acceptable if the given string is valid \c Invalid otherwise.
+     * \return \c Acceptable if the given string is valid,
+     *         \c Invalid if the given string contains invalid characters (on Windows), and
+     *         \c Intermediate otherwise.
      * \sa validateName(), validateType(), validatePermissions()
      */
     State validate(QString& text, int& pos) const override;
