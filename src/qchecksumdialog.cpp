@@ -1,5 +1,6 @@
 #include "qchecksumdialog.h"
 #include "pathvalidator.h"
+#include "checksumvalidator.h"
 
 #include <QtWidgets>
 #include <iostream>
@@ -22,6 +23,9 @@ QChecksumDialog::QChecksumDialog(QWidget* parent) :
 
     mChecksumEdit = new QLineEdit(this);
     mChecksumEdit->setWhatsThis(tr("Enter here the expected checksum"));
+
+    mChecksumValidator = new ChecksumValidator(mChecksumEdit);
+    mChecksumEdit->setValidator(mChecksumValidator);
 
     mChecksumLabel = new QLabel(tr("Expected checksum:"), this);
     mChecksumLabel->setBuddy(mChecksumEdit);
@@ -47,36 +51,52 @@ QChecksumDialog::QChecksumDialog(QWidget* parent) :
     setLayout(mainLayout);
     setFixedHeight(sizeHint().height());
 
-    connect(mFileEdit, &QLineEdit::textEdited, this, [this] () {
-        if (mFileEdit->hasAcceptableInput()) {
-            mFileEdit->setPalette(QPalette());
-        } else {
-            QPalette palette = mFileEdit->palette();
-            palette.setColor(QPalette::Text, Qt::red);
-            mFileEdit->setPalette(palette);
-        }
-    });
-
-    connect(mFileButton, &QPushButton::clicked, this, [this] () {
-        QString dir;
-        if (QFileInfo(mFileEdit->text()).isDir())
-            dir = mFileEdit->text();
-        else if (QFileInfo(mFileEdit->text()).dir().exists())
-            dir = QFileInfo(mFileEdit->text()).dir().absolutePath();
-
-        dir = QFileDialog::getOpenFileName(this, tr("Choose file to hash"), dir);
-        if (!dir.isNull())
-            mFileEdit->setText(dir);
-    });
+    connect(mFileEdit, &QLineEdit::textChanged, this, &QChecksumDialog::validateLineEdit);
+    connect(mChecksumEdit, &QLineEdit::textChanged, this, &QChecksumDialog::validateLineEdit);
+    connect(mFileButton, &QPushButton::clicked, this, &QChecksumDialog::openFileDialog);
     connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
 }
 
-void QChecksumDialog::addAlgorithm(const QString& name, const QString& program, const QString& whatsThis)
+void QChecksumDialog::validateLineEdit(void)
+{
+    QLineEdit* lineEdit = qobject_cast<QLineEdit*>(sender());
+    if (lineEdit == nullptr)
+        return;
+
+    if (lineEdit->hasAcceptableInput()) {
+        lineEdit->setPalette(QPalette());
+    } else {
+        QPalette palette = lineEdit->palette();
+        palette.setColor(QPalette::Text, Qt::red);
+        lineEdit->setPalette(palette);
+    }
+}
+
+void QChecksumDialog::openFileDialog(void)
+{
+    QString dir;
+    if (QFileInfo(mFileEdit->text()).isDir())
+        dir = mFileEdit->text();
+    else if (QFileInfo(mFileEdit->text()).dir().exists())
+        dir = QFileInfo(mFileEdit->text()).dir().absolutePath();
+
+    dir = QFileDialog::getOpenFileName(this, tr("Choose file to hash"), dir);
+    if (!dir.isNull())
+        mFileEdit->setText(dir);
+}
+
+void QChecksumDialog::addAlgorithm(const QString& name, const QString& program, int numBits, const QString& whatsThis)
 {
     QPushButton* algoButton = new QPushButton(name, this);
     algoButton->setMaximumWidth(100);
     algoButton->setWhatsThis(whatsThis);
     mButtonsLayout->insertWidget(mButtonsLayout->count() - 1, algoButton);
+
+    mChecksumValidator->addAlgorithm(name, numBits);
+
+    connect(mChecksumEdit, &QLineEdit::textChanged, this, [this, algoButton, name] (const QString& text) {
+        algoButton->setEnabled(text.isEmpty() || mChecksumValidator->getValidAlgoritms(text).contains(name));
+    });
 
     connect(algoButton, &QPushButton::clicked, this, [this, program] {
         QProcess checksumProcess(this);

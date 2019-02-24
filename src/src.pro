@@ -4,10 +4,12 @@ QT += widgets
 
 HEADERS += qchecksumdialog.h    \
            pathvalidator.h      \
+    checksumvalidator.h
 
 SOURCES += qchecksumdialog.cpp  \
            pathvalidator.cpp    \
            main.cpp             \
+    checksumvalidator.cpp
 
 TRANSLATIONS += qchecksum_en.ts \
                 qchecksum_fr.ts \

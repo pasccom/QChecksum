@@ -3,23 +3,23 @@
 #include <QtWidgets>
 #include <QtDebug>
 
-#define CHECKSUM_LIST(_ALGORITHM_)        \
-    _ALGORITHM_(MD5,    md5sum,    true)  \
-    _ALGORITHM_(SHA1,   sha1sum,   false) \
-    _ALGORITHM_(SHA224, sha224sum, false) \
-    _ALGORITHM_(SHA256, sha256sum, false) \
-    _ALGORITHM_(SHA384, sha384sum, false) \
-    _ALGORITHM_(SHA512, sha512sum, false) \
-    _ALGORITHM_(Blake2, b2sum,     false) \
+#define CHECKSUM_LIST(_ALGORITHM_)             \
+    _ALGORITHM_(MD5,    md5sum,    128, true)  \
+    _ALGORITHM_(SHA1,   sha1sum,   160, false) \
+    _ALGORITHM_(SHA224, sha224sum, 224, false) \
+    _ALGORITHM_(SHA256, sha256sum, 256, false) \
+    _ALGORITHM_(SHA384, sha384sum, 384, false) \
+    _ALGORITHM_(SHA512, sha512sum, 512, false) \
+    _ALGORITHM_(Blake2, b2sum,     512, false) \
 
-#define __CREATE_BUTTONS(_name_, _program_, _deprecated_)                                                                               \
+#define __CREATE_BUTTONS(_name_, _program_, _bits_, _deprecated_)                                                                       \
     if ((__anySelected && argParser.isSet(yes ## _name_)) || (!__anySelected && !argParser.isSet(no ## _name_))) {                      \
         __whichProcess.setProgram("which");                                                                                             \
         __whichProcess.setArguments(QStringList() << #_program_);                                                                       \
         __whichProcess.start(QProcess::ReadOnly);                                                                                       \
         if (__whichProcess.waitForFinished(1000)) {                                                                                     \
             if (__whichProcess.exitCode() == 0)                                                                                         \
-                dialog.addAlgorithm(#_name_, #_program_,                                                                                \
+                dialog.addAlgorithm(#_name_, #_program_, _bits_,                                                                        \
                                     QChecksumDialog::tr("Use <b>%1</b> algorithm %2").arg(#_name_)                                      \
                                                                                      .arg(_deprecated_                                  \
                                                                                           ? QChecksumDialog::tr("(<i>deprecated</i>)")  \
@@ -36,7 +36,7 @@
     QProcess __whichProcess(&app);                                                                                                      \
     _list_(__CREATE_BUTTONS)                                                                                                            \
 
-#define __CREATE_OPTIONS(_name_, _program_, _deprecated_)                                                                               \
+#define __CREATE_OPTIONS(_name_, _program_, _bits_, _deprecated_)                                                                       \
     QCommandLineOption yes ## _name_(QString(#_name_).toLower(), QChecksumDialog::tr("Select %1 algorithm").arg(#_name_));              \
     argParser.addOption(yes ## _name_);                                                                                                 \
     QCommandLineOption no ## _name_(QString("no-" # _name_).toLower(), QChecksumDialog::tr("Disable %1 algorithm").arg(#_name_));       \
@@ -45,7 +45,7 @@
 #define CREATE_OPTIONS(_list_)                                                                                                          \
     _list_(__CREATE_OPTIONS)                                                                                                            \
 
-#define __PROCESS_OPTIONS(_name_, _program_, _deprecated_)                                                                              \
+#define __PROCESS_OPTIONS(_name_, _program_, _bits_, _deprecated_)                                                                      \
     if (argParser.isSet(yes ## _name_))                                                                                                 \
         __anySelected = true;                                                                                                           \
 
