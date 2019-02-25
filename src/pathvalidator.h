@@ -3,6 +3,14 @@
 
 #include <QValidator>
 
+/*!
+ * \brief A validator for files and folders paths
+ *
+ * This is a validator for files names and folders, which takes into account:
+ *  \li The type (file or folder)
+ *  \li The file extension.
+ *  \li The file access rights.
+ */
 class PathValidator : public QValidator
 {
 public:

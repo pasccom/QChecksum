@@ -4,6 +4,15 @@
 #include <QValidator>
 #include <QMap>
 
+/*!
+ * \brief A validator for checksums
+ *
+ * The validate() method of this class can tell whether a string can be a checksum based on
+ * the characters it contains and its length.
+ * Depending on the length of the checksum, the method getValidAlgoritms()
+ * can tell from what (known) algorithm it corresponds.
+ * The algorithms must be registered using the addAlgorithm() method.
+ */
 class ChecksumValidator : public QValidator
 {
 public:
