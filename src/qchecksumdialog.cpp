@@ -137,8 +137,8 @@ bool QChecksumDialog::addChecksumFilePath(const QString& filePath)
 
     mFilePaths.append(filePath);
 
-    mChecksumLabel->setEnabled(mFilePaths.size() < 1);
-    mChecksumEdit->setEnabled(mFilePaths.size() < 1);
+    mChecksumLabel->setEnabled(mFilePaths.size() <= 1);
+    mChecksumEdit->setEnabled(mFilePaths.size() <= 1);
 
     mFileLabel->hide();
     mFileEdit->hide();
