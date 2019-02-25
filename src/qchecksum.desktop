@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Service
+Name=QChecksum
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/octet-stream;
+Actions=qchecksum
+TryExec=qchecksum
+
+[Desktop Action qchecksum]
+Icon=dialog-ok
+Name=QChecksum
+Exec=bash -c 'OUTPUT=$(qchecksum %f);ANS=$?; test $ANS -eq 255 && exit 0; test -n "$OUTPUT" && notify-send -t 0 -i "dialog-information" "QChecksum" "$OUTPUT" || (test $ANS -eq 0 && notify-send -t 0 -i "dialog-ok" "QChecksum" "Checksum matches" || notify-send -t 0 -i "dialog-error" "QChecksum" "Checksum does not match")'
+
