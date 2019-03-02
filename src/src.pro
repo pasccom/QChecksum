@@ -1,7 +1,8 @@
 TEMPLATE = app     # Make an executable
 TARGET = qchecksum # The name of the executable
-QT += widgets
+QT += widgets      # Uses Qt Widgets
 
+# Files:
 HEADERS += qchecksumdialog.h     \
            pathvalidator.h       \
            checksumvalidator.h   \
@@ -60,7 +61,7 @@ lrelease.CONFIG += no_link
 QMAKE_EXTRA_COMPILERS += lrelease
 POST_TARGETDEPS += compiler_lrelease_make_all
 
-# Installation:
+# Target installation:
 isEmpty(PREFIX) {
     isEmpty(USER_INSTALL) {
         BIN_DIR="/usr/bin"
@@ -77,10 +78,12 @@ isEmpty(PREFIX) {
 target.files=$$DESTDIR/$$TARGET
 target.path="$$BIN_DIR"
 
+# Translation files installation:
 translations.files=$$DESTDIR/*.qm
 translations.path="$$DATA_DIR/$$TARGET"
 DEFINES += "TRANSLATIONS_INSTALL_DIR=\\\"$${translations.path}\\\""
 
+# Service file installation:
 SERVICE_PATHS=$$system(kf5-config --path services)
 SERVICE_PATHS=$$split(SERVICE_PATHS, :)
 isEmpty(USER_INSTALL) {
@@ -93,4 +96,5 @@ message(INSTALL_SERVICE_PATH=$$INSTALL_SERVICE_PATH)
 installService.path = $$INSTALL_SERVICE_PATH
 installService.files = qchecksum.desktop
 
+# Installation:
 INSTALLS += target installService translations
