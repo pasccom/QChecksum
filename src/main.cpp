@@ -3,6 +3,59 @@
 #include <QtWidgets>
 #include <QtDebug>
 
+/*!
+ * \mainpage
+ *
+ * \section Description
+ * This repository contains the code for a small utiliy program which computes
+ * and verifies checksums for files. It also includes services definitions to
+ * allow users to compute checksums directly from e.g.  Dolphin or Konqueror context
+ * menus and run the program directly from Dolphin and Konqueror context menu.
+ *
+ * The services are implemented in such a way, that the algorithms can be disabled
+ * individually in e.g. Dolphin or Konqueror service configuration.
+ *
+ * \section Features
+ *
+ * Here is a list of the current features of the program:
+ * \li Allows to compute checksums using the programs in \c /bin
+ * \li Allows to compute verify checksums using the programs in \c /bin
+ * \li Can be run directly from e.g. Dolphin or Konqueror context menus
+ * \li Lightweight version implemented using a service, which allows to
+ * compute and verify checksums from e.g. Dolphin or Konqueror context menus
+ *
+ * \section Installation
+ *
+ * Compiling the program requires Qt5 and generating the services requires Python 3.
+ *
+ * The program can either be installed systemwide or in user HOME directory. To
+ * select user HOME directory, set \c USER_INSTALL on \c qmake command line.
+ * The build system also support the PREFIX option for binary and data installation.
+ *
+ * \section future Future developments
+ *
+ * If you have any other feature you will be interested in, please let me know.
+ * I will be pleased to develop it if I think it is a must have.
+ *
+ * If you want to implement extension, also tell me please. Admittedly you
+ * can do what you desire with the code (under the [licensing constraints](#license)), but this will avoid double work.
+ *
+ * \section license Licensing information
+ *
+ * QChecksum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * QChecksum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with QChecksum. If not, see http://www.gnu.org/licenses/
+ */
+
 #define CHECKSUM_LIST(_ALGORITHM_)             \
     _ALGORITHM_(MD5,    md5sum,    128, true)  \
     _ALGORITHM_(SHA1,   sha1sum,   160, false) \

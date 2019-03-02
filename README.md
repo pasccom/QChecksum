@@ -12,7 +12,7 @@ individually in e.g. Dolphin or Konqueror service configuration.
 FEATURES
 --------
 
-Here is a list of the current features of the plugin:
+Here is a list of the current features of the program:
 - Allows to compute checksums using the programs in `/bin`
 - Allows to compute verify checksums using the programs in `/bin`
 - Can be run directly from e.g. Dolphin or Konqueror context menus
