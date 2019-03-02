@@ -81,4 +81,16 @@ translations.files=$$DESTDIR/*.qm
 translations.path="$$DATA_DIR/$$TARGET"
 DEFINES += "TRANSLATIONS_INSTALL_DIR=\\\"$${translations.path}\\\""
 
-INSTALLS += target translations
+SERVICE_PATHS=$$system(kf5-config --path services)
+SERVICE_PATHS=$$split(SERVICE_PATHS, :)
+isEmpty(USER_INSTALL) {
+    INSTALL_SERVICE_PATH = $$member(SERVICE_PATHS, 1)
+} else {
+    INSTALL_SERVICE_PATH = $$member(SERVICE_PATHS, 0)
+}
+
+message(INSTALL_SERVICE_PATH=$$INSTALL_SERVICE_PATH)
+installService.path = $$INSTALL_SERVICE_PATH
+installService.files = qchecksum.desktop
+
+INSTALLS += target installService translations
