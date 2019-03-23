@@ -35,6 +35,9 @@ Thumbs.db
 /.qmake.cache
 /.qmake.stash
 
+# Sphinx Makefile
+!/services/doc/Makefile
+
 # qtcreator generated files
 *.pro.user*
 
@@ -77,3 +80,4 @@ debug/
 release/
 gen/
 /doc/
+_build/
