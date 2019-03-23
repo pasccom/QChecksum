@@ -4,19 +4,24 @@ TARGET      = .     # No default target
 INSTALLS    =       # No default install
 
 # Files:
-OTHER_FILES += generate-checksum-services.py
+OTHER_FILES += generate_checksum_services.py \
+               checksum_services.py \
+               services.py \
+               doc/index.rst \
+               doc/services.rst \
+               doc/checksum_services.rst
 
 # Build target:
-genServices.depends = generate-checksum-services.py
+genServices.depends = generate_checksum_services.py
 genServices.commands = (test ! -d "gen" && mkdir "$$DESTDIR");
-genServices.commands += (python3 generate-checksum-services.py "$$DESTDIR/");
+genServices.commands += (python3 generate_checksum_services.py "$$DESTDIR/");
 genServices.CONFIG += no_link
 
 QMAKE_EXTRA_TARGETS += genServices
 POST_TARGETDEPS += genServices
 
 # Clean target:
-ALGORITMS=$$system(python3 generate-checksum-services.py)
+ALGORITMS=$$system(python3 generate_checksum_services.py)
 for (algo, ALGORITMS) {
     message(Found $$algo)
     QMAKE_CLEAN += $$DESTDIR/checksum-compute-$${algo}.desktop
