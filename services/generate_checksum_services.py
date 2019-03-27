@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # Copyright 2019 Pascal COMBES <pascom@orange.fr>
 # 
 # This file is part of QChecksum.
@@ -14,8 +16,6 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with QChecksum. If not, see <http://www.gnu.org/licenses/>
-
-#!/usr/bin/python3
 
 from sys import argv, exit
 import os
