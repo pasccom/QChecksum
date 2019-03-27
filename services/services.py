@@ -1,3 +1,20 @@
+# Copyright 2019 Pascal COMBES <pascom@orange.fr>
+# 
+# This file is part of QChecksum.
+# 
+# QChecksum is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# QChecksum is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with QChecksum. If not, see <http://www.gnu.org/licenses/>
+
 """ This module allows to describe `Freedesktop entries <https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html>`_ in Python.
     The ``*.desktop`` files representing the services can be generated from these Python descriptions.
 """
