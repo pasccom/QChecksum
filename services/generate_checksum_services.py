@@ -46,7 +46,7 @@ if __name__ == "__main__":
         compute['Name']['fr'] = f"Hasher avec {algorithm['name']}"
         compute['X-KDE-Submenu']['fr'] = "Hasher"
 
-        with open(os.path.join(argv[1], compute.filename), 'wt') as desktopFile:
+        with open(os.path.join(argv[1], compute.filename), 'wt', encoding='utf-8') as desktopFile:
             desktopFile.write(repr(compute))
             print(f"Created {desktopFile.name}")
 
@@ -55,6 +55,6 @@ if __name__ == "__main__":
         verify['X-KDE-Submenu']['fr'] = "Vérifier un hash"
         verify['Actions']['Exec']['fr'] = f"""bash -c 'CHECKSUM=$(kdialog --desktopfile checksum-verify-{algorithm['name'].lower()} --title "{algorithm['name']} checksum" --inputbox "Somme de contrôle {algorithm['name']} attendue pour %f:" ""); test -z "$CHECKSUM" && exit 0; test "$CHECKSUM" = "$({algorithm['program']} %f | cut -d " " -f 1)" && notify-send -t 0 -i "dialog-ok" "{algorithm['name']} checksum" "%f:\\nLa somme de contrôle {algorithm['name']} est valide" || notify-send -t 0 -i "dialog-error" "{algorithm['name']} checksum" "%f:\\nLa somme de contrôle {algorithm['name']} est invalide"'"""
 
-        with open(os.path.join(argv[1], verify.filename), 'wt') as desktopFile:
+        with open(os.path.join(argv[1], verify.filename), 'wt', encoding='utf-8') as desktopFile:
             desktopFile.write(repr(verify))
             print(f"Created {desktopFile.name}")
