@@ -96,8 +96,12 @@ target.files=$$DESTDIR/$$TARGET
 target.path="$$BIN_DIR"
 
 # Translation files installation:
-translations.files=$$DESTDIR/*.qm
+translations.files=
+for (lang, TRANSLATIONS) {
+    translations.files += $$DESTDIR/$$replace(lang, ".ts", ".qm")
+}
 translations.path="$$DATA_DIR/$$TARGET"
+translations.CONFIG += no_check_exist
 DEFINES += "TRANSLATIONS_INSTALL_DIR=\\\"$${translations.path}\\\""
 
 # Service file installation:

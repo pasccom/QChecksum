@@ -56,6 +56,12 @@ isEmpty(USER_INSTALL) {
 
 message(INSTALL_PATH=$$INSTALL_PATH)
 installServices.path = $$INSTALL_PATH
-installServices.files = gen/*
+ALGORITMS=$$system(python3 generate_checksum_services.py)
+for (algo, ALGORITMS) {
+    message(Found $$algo)
+    installServices.files += $$DESTDIR/checksum-compute-$${algo}.desktop
+    installServices.files += $$DESTDIR/checksum-verify-$${algo}.desktop
+}
+installServices.CONFIG += no_check_exist
 
 INSTALLS += installServices
