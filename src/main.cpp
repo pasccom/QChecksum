@@ -129,7 +129,7 @@ int main(int argc, char** argv)
     QApplication app(argc, argv);
     app.setQuitOnLastWindowClosed(true);
     QApplication::setApplicationName("QChecksum");
-    QApplication::setApplicationVersion("1.1");
+    QApplication::setApplicationVersion("1.2");
 
     QTranslator translator;
     if (translator.load(QLocale(), "qchecksum", "_", QApplication::applicationDirPath()) ||
