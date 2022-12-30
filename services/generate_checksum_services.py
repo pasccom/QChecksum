@@ -53,7 +53,7 @@ if __name__ == "__main__":
         verify = VerifyServiceEntry(algorithm['name'], algorithm['program'])
         verify['Name']['fr'] = f"Vérifier un hash {algorithm['name']}"
         verify['X-KDE-Submenu']['fr'] = "Vérifier un hash"
-        verify['Actions']['Exec']['fr'] = f"""bash -c 'CHECKSUM=$(kdialog --desktopfile checksum-verify-{algorithm['name'].lower()} --title "{algorithm['name']} checksum" --inputbox "Somme de contrôle {algorithm['name']} attendue pour %f:" ""); test -z "$CHECKSUM" && exit 0; test "$CHECKSUM" = "$({algorithm['program']} %f | cut -d " " -f 1)" && notify-send -t 0 -i "dialog-ok" "{algorithm['name']} checksum" "%f:\\nLa somme de contrôle {algorithm['name']} est valide" || notify-send -t 0 -i "dialog-error" "{algorithm['name']} checksum" "%f:\\nLa somme de contrôle {algorithm['name']} est invalide"'"""
+        verify['Actions']['Exec']['fr'] = f"""bash -c 'CHECKSUM=$(kdialog --desktopfile checksum-verify-{algorithm['name'].lower()} --title "{algorithm['name']} checksum" --inputbox "Somme de contrôle {algorithm['name']} attendue pour %f:" ""); test -z "$CHECKSUM" && exit 0; test "$CHECKSUM" = "$({algorithm['program']} "%f" | cut -d " " -f 1)" && notify-send -t 0 -i "dialog-ok" "{algorithm['name']} checksum" "%f:\\nLa somme de contrôle {algorithm['name']} est valide" || notify-send -t 0 -i "dialog-error" "{algorithm['name']} checksum" "%f:\\nLa somme de contrôle {algorithm['name']} est invalide"'"""
 
         with open(os.path.join(argv[1], verify.filename), 'wt', encoding='utf-8') as desktopFile:
             desktopFile.write(repr(verify))

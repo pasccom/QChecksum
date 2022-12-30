@@ -37,7 +37,7 @@ class ComputeServiceEntry(ServiceEntry):
             Actions=DesktopAction(
                 f"compute-{algorithm.lower()}",
                 algorithm,
-                Exec=LocaleString(f"""notify-send -t 0 -i "dialog-information" "{algorithm} checksum" "%f:\\n$({program} %f | cut -d ' ' -f 1)\"""")
+                Exec=LocaleString(f"""notify-send -t 0 -i "dialog-information" "{algorithm} checksum" "%f:\\n$({program} "%f" | cut -d ' ' -f 1)\"""")
             ),
             TryExec=program
         )
@@ -59,7 +59,7 @@ class VerifyServiceEntry(ServiceEntry):
             Actions=DesktopAction(
                 f"verify-{algorithm.lower()}",
                 algorithm,
-                Exec=LocaleString(f"""bash -c 'CHECKSUM=$(kdialog --desktopfile checksum-verify-{algorithm.lower()} --title "{algorithm} checksum" --inputbox "Expected {algorithm} checksum for %f:" ""); test -z "$CHECKSUM" && exit 0; test "$CHECKSUM" = "$({program} %f | cut -d " " -f 1)" && notify-send -t 0 -i "dialog-ok" "{algorithm} checksum" "%f:\\nValid {algorithm} checksum" || notify-send -t 0 -i "dialog-error" "{algorithm} checksum" "%f:\\nInvalid {algorithm} checksum"'""")
+                Exec=LocaleString(f"""bash -c 'CHECKSUM=$(kdialog --desktopfile checksum-verify-{algorithm.lower()} --title "{algorithm} checksum" --inputbox "Expected {algorithm} checksum for %f:" ""); test -z "$CHECKSUM" && exit 0; test "$CHECKSUM" = "$({program} "%f" | cut -d " " -f 1)" && notify-send -t 0 -i "dialog-ok" "{algorithm} checksum" "%f:\\nValid {algorithm} checksum" || notify-send -t 0 -i "dialog-error" "{algorithm} checksum" "%f:\\nInvalid {algorithm} checksum"'""")
             ),
             TryExec=program
         )
